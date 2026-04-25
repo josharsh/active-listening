@@ -1,8 +1,8 @@
 # Active Listening
 
-A Claude Code skill that detects your preferences during conversation and remembers them across sessions.
+A human-readable preference manager for Claude Code. Detects what you care about, organizes it, and gives you full control.
 
-Say things like "never push without asking" or "always use const" — Active Listening saves them to disk and applies them in every future conversation.
+Say things like "never push without asking" or "always use const" — Active Listening saves them to a categorized markdown file you can read, edit, share, and version control.
 
 ## Install
 
@@ -113,6 +113,22 @@ Tests are defined in `tests.json` and compatible with [skillmother](https://gith
 ```bash
 skillmother test ~/Development/active-listening/
 ```
+
+## Why Not Just Use CLAUDE.md or Auto Memory?
+
+Claude Code has built-in memory (Auto Memory, `/remember`, CLAUDE.md). They work. Active Listening is different in a few specific ways:
+
+**Transparency.** Auto Memory writes to an opaque MEMORY.md that you don't control. Active Listening writes to a categorized markdown file — you see exactly what was saved and why.
+
+**Precision.** Auto Memory captures everything it thinks is useful. Active Listening specifically targets preference statements with confidence tiers — auto-saving "Never push without asking" while confirming "I prefer tabs over spaces" and ignoring "I never used var before."
+
+**Management.** No other tool gives you `show`, `forget`, `clear`, and `status` commands for your preferences. You can review what Claude learned, remove things that are wrong, and start fresh.
+
+**Zero infrastructure.** No SQLite, no MCP server, no hooks, no background processes. One SKILL.md file. Works anywhere Claude Code runs.
+
+**Portability.** Your preferences file is plain markdown. Copy it to another machine, commit it to a dotfiles repo, or share team conventions with colleagues.
+
+If Auto Memory and CLAUDE.md cover your needs, use them — they're great. Active Listening is for people who want to see and manage what Claude remembers about them.
 
 ## How Preferences Are Applied
 
