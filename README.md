@@ -83,7 +83,9 @@ Every future session with `/active-listening` will load this preference automati
 | `/active-listening show` | Display all categorized preferences |
 | `/active-listening forget <text>` | Remove a specific preference |
 | `/active-listening clear` | Reset all preferences (with confirmation) |
-| `/active-listening status` | Show count and categories |
+| `/active-listening status` | Show count, categories, and sync status |
+| `/active-listening no-sync` | Stop writing to CLAUDE.local.md |
+| `/active-listening sync` | Resume writing to CLAUDE.local.md |
 
 You can also use natural language: "show my preferences", "forget the preference about pushing", "clear all preferences".
 
@@ -130,9 +132,26 @@ Claude Code has built-in memory (Auto Memory, `/remember`, CLAUDE.md). They work
 
 If Auto Memory and CLAUDE.md cover your needs, use them — they're great. Active Listening is for people who want to see and manage what Claude remembers about them.
 
+## CLAUDE.local.md Sync
+
+By default, Active Listening also writes every preference to `CLAUDE.local.md` in your project. This means preferences work automatically in future sessions — even without activating the skill.
+
+```markdown
+## Active Listening Preferences
+- Never push to main without asking first
+- Always use const over let
+- API runs on port 3001
+```
+
+This enhances Claude Code's built-in system rather than replacing it. Your preferences become first-class instructions that Claude follows from session start.
+
+To disable: `/active-listening no-sync` or just say "don't write to CLAUDE.local.md".
+
 ## How Preferences Are Applied
 
-When you start a new conversation and activate the skill (`/active-listening`), it reads the preferences file and applies all saved rules as constraints for that session. No background processes, no servers — just a skill that reads a file.
+**With CLAUDE.local.md sync (default):** Preferences are applied automatically every session via Claude Code's built-in CLAUDE.local.md loading. No activation needed.
+
+**Without sync:** Activate with `/active-listening` at the start of a session to read the preferences file and apply all saved rules as constraints.
 
 ## Uninstalling
 

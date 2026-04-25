@@ -64,10 +64,56 @@ When a preference is confirmed (auto-save or user-approved):
 2. **Categorize** it using keyword matching (see Categories below)
 3. **Check for duplicates** — read `~/.claude/active-listening/preferences.md` and skip if an equivalent preference exists. Inform the user: "Already remembered."
 4. **Check for conflicts** — if an existing preference contradicts the new one, ask the user which to keep
-5. **Persist** — append the preference to the correct category section in `~/.claude/active-listening/preferences.md` using the Edit tool. Add the current date in parentheses.
-6. **Confirm** — tell the user: "Saved: [preference] under [Category]."
+5. **Persist** — do BOTH of the following:
+   - Append the preference to the correct category section in `~/.claude/active-listening/preferences.md` using the Edit tool. Add the current date in parentheses.
+   - **Sync to CLAUDE.local.md** (see CLAUDE.local.md Sync below)
+6. **Confirm** — tell the user: "Saved: [preference] under [Category]. Also synced to CLAUDE.local.md."
 
 If the preferences file doesn't exist yet, create it with the full template (see Preferences File Format below) and then add the preference.
+
+## CLAUDE.local.md Sync
+
+By default, Active Listening writes every saved preference to `CLAUDE.local.md` in the current working directory. This makes preferences first-class instructions that Claude follows automatically — no skill activation needed in future sessions.
+
+### How it works
+
+When a preference is saved:
+
+1. Read `CLAUDE.local.md` in the current working directory (create it if it doesn't exist)
+2. Look for a section starting with `## Active Listening Preferences`. If it doesn't exist, append it to the end of the file.
+3. Append the preference as a bullet point under that section
+4. Do NOT modify any other content in CLAUDE.local.md — only touch the Active Listening section
+
+The section format in CLAUDE.local.md:
+
+```markdown
+## Active Listening Preferences
+- Never push to main without asking first
+- Always use const over let
+- API runs on port 3001
+```
+
+Note: CLAUDE.local.md entries are kept concise — no dates, no category headers. Just clean rules.
+
+### Disabling CLAUDE.local.md sync
+
+If a user says "don't write to CLAUDE.local.md", "disable claude.local.md sync", "stop syncing to CLAUDE.local.md", or similar:
+
+1. Acknowledge: "CLAUDE.local.md sync disabled for this session."
+2. Stop writing to CLAUDE.local.md for the remainder of the session
+3. Continue writing to `~/.claude/active-listening/preferences.md` as normal
+
+If a user says "enable claude.local.md sync" or "start syncing to CLAUDE.local.md", re-enable it.
+
+The user can also run `/active-listening no-sync` to disable or `/active-listening sync` to enable.
+
+### Removing synced preferences
+
+When a preference is removed via `forget` or `clear`:
+
+1. Remove it from `~/.claude/active-listening/preferences.md` as normal
+2. Also remove the matching line from the `## Active Listening Preferences` section in `CLAUDE.local.md`
+3. If the section becomes empty after removal, remove the section header too
 
 ## Categories
 
@@ -112,7 +158,14 @@ Trigger: `/active-listening status`
 Display:
 - Total number of saved preferences
 - Breakdown by category
-- File path: `~/.claude/active-listening/preferences.md`
+- CLAUDE.local.md sync: enabled/disabled
+- File paths: `~/.claude/active-listening/preferences.md` and `CLAUDE.local.md`
+
+### sync / no-sync
+
+Trigger: `/active-listening sync` or `/active-listening no-sync`
+
+Enable or disable writing preferences to `CLAUDE.local.md`. Default is enabled.
 
 ## Preferences File Format
 
