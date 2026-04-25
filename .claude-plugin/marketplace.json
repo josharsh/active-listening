@@ -1,0 +1,18 @@
+{
+  "name": "Active Listening",
+  "description": "Detects your preferences during conversation and remembers them across sessions. Say 'never push without asking' or 'always use const' — it saves to disk and re-applies in every future conversation.",
+  "version": "1.0.0",
+  "author": "josharsh",
+  "license": "MIT",
+  "plugins": [
+    {
+      "name": "active-listening",
+      "description": "Monitor conversation to detect user preference statements, save them to disk, review saved preferences, and apply learned rules in every future session",
+      "type": "skill",
+      "source": {
+        "type": "local",
+        "path": "skills/active-listening"
+      }
+    }
+  ]
+}

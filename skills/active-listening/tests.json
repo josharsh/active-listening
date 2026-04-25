@@ -1,0 +1,121 @@
+{
+  "skill": "active-listening",
+  "tests": [
+    {
+      "name": "detects-always-pattern",
+      "description": "Should detect an 'always' preference and acknowledge saving it",
+      "prompt": "Always use const instead of let when the variable is not reassigned",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "Saved"
+        },
+        {
+          "type": "pattern",
+          "value": "(?i)(coding style|preference|remembered|saved)"
+        }
+      ]
+    },
+    {
+      "name": "detects-never-pattern",
+      "description": "Should detect a 'never' preference and acknowledge saving it",
+      "prompt": "Never push to main without asking me first",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "Saved"
+        },
+        {
+          "type": "pattern",
+          "value": "(?i)(git|version control|preference|remembered|saved)"
+        }
+      ]
+    },
+    {
+      "name": "detects-remember-pattern",
+      "description": "Should detect 'Remember:' as a preference signal and capture the detail",
+      "prompt": "Remember: our API runs on port 3001",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "Saved"
+        },
+        {
+          "type": "pattern",
+          "value": "(?i)(port 3001|project config|saved)"
+        }
+      ]
+    },
+    {
+      "name": "ignores-past-tense",
+      "description": "Should NOT treat past tense 'never' as a preference",
+      "prompt": "I never used var in my old projects, it was always let",
+      "assertions": [
+        {
+          "type": "not-contains",
+          "value": "Saved"
+        },
+        {
+          "type": "not-contains",
+          "value": "preference"
+        }
+      ]
+    },
+    {
+      "name": "ignores-questions",
+      "description": "Should NOT treat questions as preferences",
+      "prompt": "Should I always use strict mode in TypeScript?",
+      "assertions": [
+        {
+          "type": "not-contains",
+          "value": "Saved"
+        },
+        {
+          "type": "not-contains",
+          "value": "I'll remember"
+        }
+      ]
+    },
+    {
+      "name": "confirms-medium-confidence",
+      "description": "Should ask for confirmation on medium-confidence 'I prefer' patterns",
+      "prompt": "I prefer tabs over spaces for indentation",
+      "assertions": [
+        {
+          "type": "pattern",
+          "value": "(?i)(want me to remember|save this|remember this|noticed a.*(preference|preference))"
+        },
+        {
+          "type": "not-contains",
+          "value": "Saved:"
+        }
+      ]
+    },
+    {
+      "name": "responds-to-show",
+      "description": "Should display preferences when asked to show them",
+      "prompt": "show my preferences",
+      "assertions": [
+        {
+          "type": "pattern",
+          "value": "(?i)(preferences|no preferences saved|active listening)"
+        }
+      ]
+    },
+    {
+      "name": "categorizes-git-preferences",
+      "description": "Should categorize git-related preferences under Git & Version Control",
+      "prompt": "Always create a feature branch before starting new work",
+      "assertions": [
+        {
+          "type": "pattern",
+          "value": "(?i)(git|version control)"
+        },
+        {
+          "type": "contains",
+          "value": "Saved"
+        }
+      ]
+    }
+  ]
+}
