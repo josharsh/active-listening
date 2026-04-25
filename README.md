@@ -42,6 +42,39 @@ Active Listening monitors your messages for preference patterns:
 - Questions: "Should I always use const?"
 - Hypotheticals: "If I were to always..."
 
+## Demo
+
+```
+❯ /plugin marketplace add https://github.com/josharsh/active-listening
+  ⎿  Successfully added marketplace: active-listening
+
+❯ /active-listening
+⏺ Active Listening enabled. No saved preferences yet.
+
+❯ Please ensure that when I ask you to code in mobile native design language
+  you follow the mobile native guidelines by google mobile design and apple
+  mobile design. (in terms of scale, spacing, fonts, and clean UI design
+  principles for mobile screens)
+
+⏺ I noticed a preference: Follow Google Material Design and Apple HIG
+  guidelines for scale, spacing, fonts, and clean UI when coding mobile
+  native designs.
+
+  This is a clear directive — saving it now.
+
+⏺ Update(~/.claude/active-listening/preferences.md)
+  ⎿  ## Architecture
+     +- Follow Google Material Design and Apple HIG guidelines (scale,
+     +  spacing, fonts, clean UI) when coding mobile native designs
+     +  *(2026-04-26)*
+
+⏺ Saved: Follow Google Material Design and Apple HIG guidelines (scale,
+  spacing, fonts, clean UI) when coding mobile native designs under
+  Architecture.
+```
+
+Every future session with `/active-listening` will load this preference automatically.
+
 ## Commands
 
 | Command | What it does |
