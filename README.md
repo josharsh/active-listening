@@ -6,19 +6,19 @@ Say things like "never push without asking" or "always use const" — Active Lis
 
 ## Install
 
-**Via Claude Code plugin system (recommended):**
+In Claude Code, run:
+
 ```
-/plugin marketplace add https://github.com/josharsh/active-listening
+/plugin marketplace add josharsh/active-listening
 ```
 
-**Via install script:**
+Or manually:
+
 ```bash
-git clone https://github.com/josharsh/active-listening.git
-cd active-listening
-./install.sh
+mkdir -p ~/.claude/skills/active-listening
+curl -sL https://raw.githubusercontent.com/josharsh/active-listening/main/skills/active-listening/SKILL.md \
+  -o ~/.claude/skills/active-listening/SKILL.md
 ```
-
-**Manual:** Copy `skills/active-listening/SKILL.md` to `~/.claude/skills/active-listening/`.
 
 ## How It Works
 
@@ -45,7 +45,7 @@ Active Listening monitors your messages for preference patterns:
 ## Demo
 
 ```
-❯ /plugin marketplace add https://github.com/josharsh/active-listening
+❯ /plugin marketplace add josharsh/active-listening
   ⎿  Successfully added marketplace: active-listening
 
 ❯ /active-listening
